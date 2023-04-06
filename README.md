@@ -43,3 +43,53 @@ The `cost_of_capital_func` module contains the following functions used by the `
 These functions are not included in the `app.py` file but are imported using the `from cost_of_capital_func import *` line at the beginning of the file.
 
 Note that it is recommended to place these functions in a separate Python file and import them into the `app.py` file to keep the code organized and easier to maintain.
+
+## Octave API
+
+This API performs a stock factor analysis using data from Kenneth French's website. The analysis calculates the alpha and beta values of a stock, based on its historical prices and factor returns. The API provides a list of available regions to choose from, and accepts a stock ticker symbol as input.
+
+### Endpoints
+
+#### `GET /regions`
+
+Returns a list of available regions to perform stock factor analysis on.
+
+**Example Request:**
+
+`GET http://localhost:8000/regions`
+
+**Example Response:**
+
+```json
+[    
+    "North America", "Europe", 
+    "Japan", "Asia Pacific ex Japan", 
+    "Developed ex US", "Developed Markets"
+]
+```
+#### `GET /analyze?region=<region>&ticker=<ticker>`
+
+Performs a stock factor analysis for the given region and ticker symbol. Returns a JSON object containing the alpha and beta values, as well as plot data for the factor returns, momentum returns, historical stock returns, and fitted vs. actual returns.
+
+**Query Parameters:**
+
+-   `region` (string, required): The region to perform analysis on. Must be one of the available regions returned by `/regions`.
+-   `ticker` (string, required): The stock ticker symbol to perform analysis on.
+
+**Example Request:**
+
+`
+GET http://localhost:8000/analyze?region=North%20America&ticker=AAPL
+`
+
+**Example Response:**
+
+```json
+{
+    "Alpha": 0.004208,     
+    "Beta_Mkt": 1.191542,    
+    "Beta_SMB": -0.149313,     
+    "Beta_HML": -0.157637,    
+    "Rf": 0.000215
+}
+```
