@@ -8,21 +8,21 @@ from cost_of_capital_func import *
 # Your functions (get_factor_links, download_zip, clean_data, etc.) should be placed in a separate Python file
 # and imported using the "from your_functions_module import *" line above.
 
-region_dict = {
-    'North America': ('Fama/French North American 5 Factors', 'North American Momentum Factor (Mom)'),
-    'Europe': ('Fama/French European 5 Factors', 'European Momentum Factor (Mom)'),
-    'Japan': ('Fama/French Japanese 5 Factors', 'Japanese Momentum Factor (Mom)'),
-    'Asia Pacific ex Japan': ('Fama/French Asia Pacific ex Japan 5 Factors', 'Asia Pacific ex Japan Momentum Factor (Mom)'),
-    'Developed ex US': ('Fama/French Developed ex US 5 Factors', 'Developed ex US Momentum Factor (Mom)'),
-    'Developed Markets': ('Fama/French Developed 5 Factors', 'Developed Momentum Factor (Mom)'),
-    'Global': ('Fama/French 5 Factors (2x3)', 'Momentum Factor (Mom)')
-}
+region_list = [
+    'North America',
+    'Europe',
+    'Japan',
+    'Asia Pacific ex Japan',
+    'Developed ex US',
+    'Developed Markets',
+    'Global'
+]
 
 sns.set(style='darkgrid')
 
 st.title('Stock Factor Analysis')
 
-region = st.selectbox('Select a region:', list(region_dict.keys()))
+region = st.selectbox('Select a region:', region_list)
 ticker = st.text_input('Enter the stock ticker symbol:')
 
 if st.button('Analyze'):

@@ -7,41 +7,38 @@ import statsmodels.api as sm
 from bs4 import BeautifulSoup
 
 def get_factor_links(region):
-  
-    factors_dict = {
-        'Fama/French 5 Factors (2x3)': 'ftp/F-F_Research_Data_5_Factors_2x3_CSV.zip',
-        'Fama/French Developed 5 Factors': 'ftp/Developed_5_Factors_CSV.zip',
-        'Fama/French Developed ex US 5 Factors': 'ftp/Developed_ex_US_5_Factors_CSV.zip',
-        'Fama/French European 5 Factors': 'ftp/Europe_5_Factors_CSV.zip',
-        'Fama/French Japanese 5 Factors': 'ftp/Japan_5_Factors_CSV.zip',
-        'Fama/French Asia Pacific ex Japan 5 Factors': 'ftp/Asia_Pacific_ex_Japan_5_Factors_CSV.zip',
-        'Fama/French North American 5 Factors': 'ftp/North_America_5_Factors_CSV.zip'
-    }
-
-    mom_dict = {
-        'Momentum Factor (Mom)': 'ftp/F-F_Momentum_Factor_CSV.zip',
-        'Developed Momentum Factor (Mom)': 'ftp/Developed_Mom_Factor_CSV.zip',
-        'Developed ex US Momentum Factor (Mom)': 'ftp/Developed_ex_US_Mom_Factor_CSV.zip',
-        'European Momentum Factor (Mom)': 'ftp/Europe_Mom_Factor_CSV.zip',
-        'Japanese Momentum Factor (Mom)': 'ftp/Japan_Mom_Factor_CSV.zip',
-        'Asia Pacific ex Japan Momentum Factor (Mom)': 'ftp/Asia_Pacific_ex_Japan_MOM_Factor_CSV.zip',
-        'North American Momentum Factor (Mom)': 'ftp/North_America_Mom_Factor_CSV.zip'
-    }
-
     region_dict = {
-        'North America': ('Fama/French North American 5 Factors', 'North American Momentum Factor (Mom)'),
-        'Europe': ('Fama/French European 5 Factors', 'European Momentum Factor (Mom)'),
-        'Japan': ('Fama/French Japanese 5 Factors', 'Japanese Momentum Factor (Mom)'),
-        'Asia Pacific ex Japan': ('Fama/French Asia Pacific ex Japan 5 Factors', 'Asia Pacific ex Japan Momentum Factor (Mom)'),
-        'Developed ex US': ('Fama/French Developed ex US 5 Factors', 'Developed ex US Momentum Factor (Mom)'),
-        'Developed Markets': ('Fama/French Developed 5 Factors', 'Developed Momentum Factor (Mom)'),
-        'Global': ('Fama/French 5 Factors (2x3)', 'Momentum Factor (Mom)')
+        'North America': (
+            'ftp/North_America_5_Factors_CSV.zip',
+            'ftp/North_America_Mom_Factor_CSV.zip'
+        ),
+        'Europe': (
+            'ftp/Europe_5_Factors_CSV.zip',
+            'ftp/Europe_Mom_Factor_CSV.zip'
+        ),
+        'Japan': (
+            'ftp/Japan_5_Factors_CSV.zip',
+            'ftp/Japan_Mom_Factor_CSV.zip'
+        ),
+        'Asia Pacific ex Japan': (
+            'ftp/Asia_Pacific_ex_Japan_5_Factors_CSV.zip',
+            'ftp/Asia_Pacific_ex_Japan_MOM_Factor_CSV.zip'
+        ),
+        'Developed ex US': (
+            'ftp/Developed_ex_US_5_Factors_CSV.zip',
+            'ftp/Developed_ex_US_Mom_Factor_CSV.zip'
+        ),
+        'Developed Markets': (
+            'ftp/Developed_5_Factors_CSV.zip',
+            'ftp/Developed_Mom_Factor_CSV.zip'
+        ),
+        'Global': (
+            'ftp/F-F_Research_Data_5_Factors_2x3_CSV.zip',
+            'ftp/F-F_Momentum_Factor_CSV.zip'
+        )
     }
+    return region_dict[region]
 
-    factor_name, momentum_name = region_dict[region]
-    factor_url = factors_dict[factor_name]
-    momentum_url = mom_dict[momentum_name]
-    return factor_url, momentum_url
 
 
 def download_zip(url, file_path):
@@ -83,8 +80,6 @@ def merge_factors_and_momentum(factors_df, momentum_df):
     merged_df.loc[:, merged_df.columns != 'Date'] /= 100
 
     return merged_df
-
-
 
 def run_regression(merged_df):
     y = merged_df['RI-RF']
