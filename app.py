@@ -54,7 +54,7 @@ if st.button('Analyze'):
             st.write(f"Beta SMB: {Beta_SMB:.6f}")
             st.write(f"Beta HML: {Beta_HML:.6f}")
             st.write(f"Rf (Monthly): {Rf:.6f}")
-
+            st.write(model.summary())
             factors_to_plot = factors_df.copy()
             factors_to_plot.set_index('Date', inplace=True)
             factors_to_plot = factors_to_plot.apply(pd.to_numeric)
