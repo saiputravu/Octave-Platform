@@ -7,7 +7,7 @@ name: Build and deploy Python app to Azure Web App - octave-cost-of-capital
 on:
   push:
     branches:
-      - main
+      - saiputravu-patch-1
   workflow_dispatch:
 
 jobs:
