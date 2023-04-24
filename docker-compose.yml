@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  cost-of-capital:
+    build: .
+    ports:
+      - 80:80
