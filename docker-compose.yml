@@ -1,6 +1,6 @@
 version: "3.9"
 services:
   cost-of-capital:
-    build: .
+    build: github.com/saiputravu/Octave-Platform#saiputravu-patch-1
     ports:
       - 80:80
